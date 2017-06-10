@@ -1,6 +1,8 @@
 #!/bin/python
 import feedparser
+import imp
 from HTMLParser import HTMLParser
+import plugins
 
 
 class MLStripper(HTMLParser):
@@ -23,16 +25,19 @@ def strip_tags(html):
 
 def parse(feed):
     d = feedparser.parse(feed)
-    for post in d.entries:
-        title = post.title
-        summary = strip_tags(post.summary)
-        link = post.link
-        date_time = post.published
+    mastodon_post = d.entries[0]
+    post = {}
 
-        print('{}'.format(title))
-        print('\t{}'.format(summary))
-        print('\t{}'.format(link))
-        print('\t{}'.format(date_time))
+    post['title'] = mastodon_post.title
+    post['summary'] = strip_tags(mastodon_post.summary)
+    post['link'] = mastodon_post.link
+    post['date_time'] = mastodon_post.published
+
+    for name in plugins.__all__:
+        # Load plugin and post
+        package_info = imp.find_module(name, ['plugins'])
+        social_outlet = imp.load_module(name, *package_info)
+        social_outlet.post(post)
 
 
 feed = 'https://mastodon.redbrick.dcu.ie/users/dregin.atom'
