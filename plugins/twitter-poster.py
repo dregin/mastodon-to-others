@@ -17,11 +17,12 @@ def post(post):
         print("Please create config: {}".format(config_location))
         print("Use helper script @ https://github.com/bear/python-twitter/blob/master/get_access_token.py")
 
-    api = twitter.Api(consumer_key=config['consumer_key'],
-            consumer_secret=config['consumer_secret'],
-            access_token_key=config['access_token_key'],
-            access_token_secret=config['access_token_secret'])
-    extras_length = len(post['link']) + 4
-    cut_index = 140-extras_length
-    status = api.PostUpdate('{}... {}'.format( post['summary'][:cut_index], post['link']))
-    print(status)
+    share_token = config['share_token']
+    if share_token in post['summary']:
+        api = twitter.Api(consumer_key=config['consumer_key'],
+                consumer_secret=config['consumer_secret'],
+                access_token_key=config['access_token_key'],
+                access_token_secret=config['access_token_secret'])
+        api.PostUpdate(post['link'])
+    else:
+        print("Post doesn't contain the share token - {}".format(share_token))
