@@ -1,1 +1,3 @@
 feedparser
+python-twitter
+pyyaml
