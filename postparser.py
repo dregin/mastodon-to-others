@@ -28,8 +28,6 @@ def parse(feed):
     mastodon_post = d.entries[0]
     post = {}
 
-    post['title'] = mastodon_post.title
-    post['summary'] = strip_tags(mastodon_post.summary)
     post['link'] = mastodon_post.link
     post['date_time'] = mastodon_post.published
 
