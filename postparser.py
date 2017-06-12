@@ -30,6 +30,7 @@ def parse(feed):
 
     post['link'] = mastodon_post.link
     post['date_time'] = mastodon_post.published
+    post['tags'] = mastodon_post.category
 
     for name in plugins.__all__:
         # Load plugin and post
