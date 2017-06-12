@@ -30,13 +30,31 @@ def parse(feed):
 
     post['link'] = mastodon_post.link
     post['date_time'] = mastodon_post.published
-    post['tags'] = mastodon_post.category
+    try:
+        post['tags'] = mastodon_post.tags
+    except AttributeError:
+        exit()
 
-    for name in plugins.__all__:
-        # Load plugin and post
-        package_info = imp.find_module(name, ['plugins'])
-        social_outlet = imp.load_module(name, *package_info)
-        social_outlet.post(post)
+    new_post = False
+
+    try:
+        with open('last_modified', 'r') as f:
+            last_modified = f.readline()
+            if last_modified < post['date_time']:
+                new_post = True
+        with open('last_modified', 'w') as f:
+            f.write(post['date_time'])
+    except IOError:
+        new_post = True
+        with open('last_modified', 'w') as f:
+            f.write(post['date_time'])
+
+    if new_post:
+        for name in plugins.__all__:
+            # Load plugin and post
+            package_info = imp.find_module(name, ['plugins'])
+            social_outlet = imp.load_module(name, *package_info)
+            social_outlet.post(post)
 
 
 feed = 'https://mastodon.redbrick.dcu.ie/users/dregin.atom'
