@@ -30,6 +30,7 @@ def parse(feed):
 
     post['link'] = mastodon_post.link
     post['date_time'] = mastodon_post.published
+    post['summary'] = strip_tags(mastodon_post.summary)
     try:
         post['tags'] = mastodon_post.tags
     except AttributeError:
