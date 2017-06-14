@@ -9,7 +9,6 @@ def get_api(cfg):
 
 
 def post(post):
-    print("Posting to Facebook")
     # Attempt to load config
     config_location = "config/facebook.yml"
     config = {}
@@ -22,6 +21,11 @@ def post(post):
     except IOError:
         print("Please create config: {}".format(config_location))
 
+    if not config['enabled'] == 'True':
+        print('Facebook disabled')
+        return
+
+    print("Posting to Facebook")
     share_token = config['share_token'].strip('#')
     tag_present = False
     for tag in post['tags']:
