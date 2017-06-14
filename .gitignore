@@ -102,3 +102,5 @@ ENV/
 
 config/twitter.yml
 config/facebook.yml
+config/ifttt.yml
+last_modified
