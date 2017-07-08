@@ -25,7 +25,14 @@ def strip_tags(html):
 
 def parse(feed):
     d = feedparser.parse(feed)
-    mastodon_post = d.entries[0]
+    if d.bozo:
+        raise d.bozo_exception
+
+    try:
+        mastodon_post = d.entries[0]
+    except IndexError:
+        return
+
     post = {}
 
     post['link'] = mastodon_post.link
