@@ -9,5 +9,5 @@ Clone the repo and run `postparser.py` from cron
 
 ## Cron
 ```
-print("Mastodonw instance @ {} isn't accessible".format(feed))
+* * * * * cd /opt/mastodon-to-others/ && /usr/bin/python /opt/mastodon-to-others/postparser.py
 ```
