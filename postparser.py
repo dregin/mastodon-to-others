@@ -4,6 +4,7 @@ import imp
 from HTMLParser import HTMLParser
 import plugins
 from urllib2 import URLError
+import yaml
 
 
 class MLStripper(HTMLParser):
@@ -66,7 +67,18 @@ def parse(feed):
             social_outlet.post(post)
 
 
-feed = 'https://mastodon.redbrick.dcu.ie/users/dregin.atom'
+config_location = 'config.yml'
+config = {}
+try:
+    with open(config_location, 'r') as stream:
+        try:
+            config = yaml.load(stream)['config']
+        except yaml.YAMLError as e:
+            print(e)
+except IOError:
+    print("Please create config: {}".format(config_location))
+
+feed = config['feed']
 try:
     parse(feed)
 except URLError:
