@@ -3,6 +3,7 @@ import feedparser
 import imp
 from HTMLParser import HTMLParser
 import plugins
+from urllib2 import URLError
 
 
 class MLStripper(HTMLParser):
@@ -66,4 +67,7 @@ def parse(feed):
 
 
 feed = 'https://mastodon.redbrick.dcu.ie/users/dregin.atom'
-parse(feed)
+try:
+    parse(feed)
+except URLError:
+    print("Mastodonw instance @ {} isn't accessible".format(feed))
