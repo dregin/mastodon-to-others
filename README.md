@@ -6,6 +6,7 @@ Plugins included are for twitter and facebook.
 
 ## Installation
 Clone the repo and run `postparser.py` from cron
+Update configs in config directory to reflect your settings
 
 ## Cron
 ```
