@@ -2,7 +2,7 @@
 
 ## Description
 Script to share Mastodon posts with a specific hash tag (default is #share) to other social media.
-Plugins included are for twitter and iftt.
+Plugins included are for twitter and ifttt.
 
 ## Installation
 Clone the repo and run `postparser.py` from cron
