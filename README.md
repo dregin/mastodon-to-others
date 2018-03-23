@@ -1,8 +1,8 @@
 # mastodon-to-others
 
 ## Description
-Script to post the last post you made on Mastodon to other social media.
-Plugins included are for twitter and facebook.
+Script to share Mastodon posts with a specific hash tag (default is #share) to other social media.
+Plugins included are for twitter and iftt.
 
 ## Installation
 Clone the repo and run `postparser.py` from cron
