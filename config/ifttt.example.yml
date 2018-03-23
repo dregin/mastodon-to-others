@@ -1,0 +1,4 @@
+config:
+  enabled: "True"
+  maker_url: "https://maker.ifttt.com/trigger/mastodon_post/with/key/<YOUR_UNIQUE_KEY>"
+  share_token: "#share"
