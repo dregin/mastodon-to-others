@@ -34,7 +34,7 @@ def post(post):
                 access_token_key=config['access_token_key'],
                 access_token_secret=config['access_token_secret'])
         try:
-            api.PostUpdate(post['link'])
+            api.PostUpdate(u"{} {}".format(post['summary'].replace(u'#', u" #"), post['link']))
             print('Posted to twitter')
         except twitter.TwitterError as e:
             print(e.message[0]['message'])
