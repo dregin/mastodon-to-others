@@ -17,6 +17,11 @@ def post(post):
         print("Please create config: {}".format(config_location))
         print("Use helper script @ https://github.com/bear/python-twitter/blob/master/get_access_token.py")
 
+    if not config['enabled'] == 'True':
+        print('IFTTT disabled')
+        return
+
+    print("Posting to Twitter")
     share_token = config['share_token'].strip('#')
     tag_present = False
     for tag in post['tags']:
