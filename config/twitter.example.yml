@@ -6,3 +6,4 @@ config:
   access_token_key: <YOUR_ACCESS_TOKEN_KEY>
   access_token_secret: <YOUR_ACCESS_TOKEN_SECRET>
   share_token: "#share"
+  invite: https://mastodon.invite.url
