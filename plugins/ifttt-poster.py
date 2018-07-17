@@ -28,6 +28,11 @@ def post(post):
     if tag_present:
         report = {}
         report["value1"] = post['link']
-        summary = post['summary'].strip(config['share_token']).strip()
-        report["value2"] = summary
+        message = post['summary'].strip(config['share_token']).strip()
+        try:
+            if config['invite']:
+                message = "{}\n\nJoin my Mastodon Instance through this invite: {}".format(message, config['invite'])
+        except KeyError:
+            pass
+        report["value2"] = message
         requests.post(config['maker_url'], data=report)    

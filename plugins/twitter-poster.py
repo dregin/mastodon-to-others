@@ -17,11 +17,6 @@ def post(post):
         print("Please create config: {}".format(config_location))
         print("Use helper script @ https://github.com/bear/python-twitter/blob/master/get_access_token.py")
 
-    if not config['enabled'] == 'True':
-        print('IFTTT disabled')
-        return
-
-    print("Posting to Twitter")
     share_token = config['share_token'].strip('#')
     tag_present = False
     for tag in post['tags']:
@@ -34,8 +29,13 @@ def post(post):
                 access_token_key=config['access_token_key'],
                 access_token_secret=config['access_token_secret'])
         try:
-            api.PostUpdate(u"{} {}".format(post['summary'].replace(u'#', u" #"), post['link']))
-            print('Posted to twitter')
+            message =  u"{} {}".format(post['summary'].replace(u'#', u" #"), post['link'])
+            try:
+                if config['invite']:
+                    message = u"{}\n\nJoin my Mastodon Instance through this invite: {}".format(message, config['invite'])
+            except KeyError:
+                pass
+            api.PostUpdate(message)
         except twitter.TwitterError as e:
             print(e.message[0]['message'])
     else:
